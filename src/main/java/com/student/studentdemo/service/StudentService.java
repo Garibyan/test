@@ -31,6 +31,7 @@ public class StudentService {
         this.modelMapper = modelMapper;
     }
 
+
     public List<StudentDTO> searchByQuery(String queryString) {
         RSQLVisitor<CriteriaQuery<Student>, EntityManager> visitor = new JpaCriteriaQueryVisitor<>();
         CriteriaQuery<Student> query;
@@ -69,6 +70,10 @@ public class StudentService {
         StudentDTO studentDto = modelMapper.map(student, StudentDTO.class);
 
         return studentDto;
+    }
+
+    public Student getStudentById (Long id){
+        return studentRepository.getOne(id);
     }
 }
 

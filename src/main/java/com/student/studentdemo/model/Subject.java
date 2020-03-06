@@ -1,6 +1,5 @@
 package com.student.studentdemo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,14 +8,14 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "sb_id")
     private Long id;
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "listOfSubjects")
-    @JsonIgnore
-    private List<Student> studentsList;
+   @Column(name = "listOfStSb")
+   @OneToMany(mappedBy = "subjectid")
+    private List<StudentSubject> listOfStSb;
 
     public Long getId() {
         return id;
@@ -30,10 +29,10 @@ public class Subject {
     public void setName(String name) {
         this.name = name;
     }
-    public List<Student> getStudentsList() {
-        return studentsList;
+    public List<StudentSubject> getListOfStSb() {
+        return listOfStSb;
     }
-    public void setStudentsList(List<Student> studentsList) {
-        this.studentsList = studentsList;
+    public void setListOfStSb(List<StudentSubject> listOfStSb) {
+        this.listOfStSb = listOfStSb;
     }
 }

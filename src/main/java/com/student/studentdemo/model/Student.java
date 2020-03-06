@@ -8,17 +8,16 @@ public class Student{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "st_id")
     private Long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_subject", joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "subject_id")})
-    private List<Subject> listOfSubjects;
+    @Column(name = "listOfStSb")
+    @OneToMany(mappedBy = "studentId")
+    private List<StudentSubject> listOfStSb;
 
     public Long getId() {
         return id;
@@ -38,11 +37,11 @@ public class Student{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public List<Subject> getListOfClasses() {
-        return listOfSubjects;
+    public List<StudentSubject> getListOfStSb() {
+        return listOfStSb;
     }
-    public void setListOfClasses(List<Subject> listOfClasses) {
-        this.listOfSubjects = listOfClasses;
+    public void setListOfStSb(List<StudentSubject> listOfStSb) {
+        this.listOfStSb = listOfStSb;
     }
 }
 
