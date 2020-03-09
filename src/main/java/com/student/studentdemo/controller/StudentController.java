@@ -1,7 +1,6 @@
 package com.student.studentdemo.controller;
 
 import com.student.studentdemo.dto.StudentDTO;
-import com.student.studentdemo.model.Student;
 import com.student.studentdemo.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,8 +47,8 @@ public class StudentController {
         return studentService.getStudent(id);
     }
 
-    @GetMapping("/studentsbysubjectid/{id}")
-    public List<StudentDTO> subjectsByStudentId(@PathVariable("id") Long id){
-        return studentService.getStudentsBySubject(id);
+    @GetMapping("/studentsbysubjectid/{name}")
+    public List<StudentDTO> subjectsByStudentId(@PathVariable("name") String name){
+        return studentService.getStudentsBySubject(name);
     }
 }

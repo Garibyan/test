@@ -3,10 +3,10 @@ package com.student.studentdemo.service;
 import com.github.tennaito.rsql.jpa.JpaCriteriaCountQueryVisitor;
 import com.github.tennaito.rsql.jpa.JpaCriteriaQueryVisitor;
 import com.student.studentdemo.dto.StudentDTO;
-import com.student.studentdemo.dto.SubjectDTO;
 import com.student.studentdemo.model.Student;
 import com.student.studentdemo.repository.StudentRepository;
 import com.student.studentdemo.repository.StudentSubjectRepository;
+import com.student.studentdemo.repository.SubjectRepository;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.RSQLVisitor;
@@ -25,12 +25,18 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
     private final StudentSubjectRepository studentSubjectRepository;
+    private final SubjectRepository subjectRepository;
     private final EntityManager entityManager;
     private final ModelMapper modelMapper;
 
-    public StudentService(StudentRepository studentRepository, StudentSubjectRepository studentSubjectRepository, EntityManager entityManager, ModelMapper modelMapper) {
+    public StudentService(StudentRepository studentRepository,
+                          StudentSubjectRepository studentSubjectRepository,
+                          SubjectRepository subjectRepository,
+                          EntityManager entityManager,
+                          ModelMapper modelMapper) {
         this.studentRepository = studentRepository;
         this.studentSubjectRepository = studentSubjectRepository;
+        this.subjectRepository = subjectRepository;
         this.entityManager = entityManager;
         this.modelMapper = modelMapper;
     }
@@ -75,11 +81,11 @@ public class StudentService {
         return studentDto;
     }
 
-    public List<StudentDTO> getStudentsBySubject(Long id){
-        List<?>listOfStSb = studentSubjectRepository.findBySubjectId(id);
-        List<Student> studentsBySubjects = studentRepository.getStudentsByListOfStSbIn(listOfStSb);
+    public List<StudentDTO> getStudentsBySubject(String name){
+        List<?>listOfStSb = studentSubjectRepository.findBySubjectId(subjectRepository.getSubjectByName(name).getId());
+        List<Student> studentsBySubject = studentRepository.getStudentsByListOfStSbIn(listOfStSb);
         Type listType = new TypeToken<List<StudentDTO>>() {}.getType();
-        return modelMapper.map(studentsBySubjects, listType);
+        return modelMapper.map(studentsBySubject, listType);
     }
 }
 

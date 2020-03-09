@@ -10,7 +10,6 @@ public class StudentSubjectControlle {
 
     private final StudentSubjectService studentSubjectService;
 
-
     public StudentSubjectControlle(StudentSubjectService studentSubjectService) {
         this.studentSubjectService = studentSubjectService;
     }
