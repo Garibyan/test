@@ -20,4 +20,5 @@ INSERT INTO STUDENT_SUBJECT (`ss_id`, `student_id`, `subject_id`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3),
-(4, 4, 4);
+(4, 4, 4),
+(5, 1, 4);

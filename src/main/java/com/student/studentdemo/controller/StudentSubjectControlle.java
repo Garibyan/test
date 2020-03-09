@@ -15,8 +15,18 @@ public class StudentSubjectControlle {
         this.studentSubjectService = studentSubjectService;
     }
 
+    @GetMapping("/ssbyid/{id}")
+    public Object ssbyid(@PathVariable("id") Long id){
+        return studentSubjectService.getssbyid(id);
+    }
+
     @GetMapping("/ssbystid/{id}")
     public Object ssbystid(@PathVariable("id") Long id){
-        return studentSubjectService.getssbystid(id);
+        return studentSubjectService.getSsByStId(id);
+    }
+
+    @GetMapping("/ssbysbid/{id}")
+    public Object ssbysbid(@PathVariable("id") Long id){
+        return studentSubjectService.getSsBySbId(id);
     }
 }

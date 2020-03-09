@@ -18,7 +18,6 @@ public class StudentController {
 
     private final StudentService studentService;
 
-
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -49,8 +48,8 @@ public class StudentController {
         return studentService.getStudent(id);
     }
 
-    @GetMapping("/byid/{id}")
-    public Student getById(@PathVariable("id") Long id){
-        return studentService.getStudentById(id);
+    @GetMapping("/studentsbysubjectid/{id}")
+    public List<StudentDTO> subjectsByStudentId(@PathVariable("id") Long id){
+        return studentService.getStudentsBySubject(id);
     }
 }

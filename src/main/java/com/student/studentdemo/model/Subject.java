@@ -9,19 +9,19 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sb_id")
-    private Long id;
+    private Long sbId;
     @Column(name = "name")
     private String name;
 
-   @Column(name = "listOfStSb")
-   @OneToMany(mappedBy = "subjectid")
+    @Column(name = "listOfStSb")
+    @OneToMany(mappedBy = "subjectId")
     private List<StudentSubject> listOfStSb;
 
     public Long getId() {
-        return id;
+        return sbId;
     }
     public void setId(Long id) {
-        this.id = id;
+        this.sbId = id;
     }
     public String getName() {
         return name;

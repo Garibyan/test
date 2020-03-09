@@ -9,9 +9,11 @@ public class StudentSubject {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ss_id")
     private Long ssId;
-    @Column(name = "student_id")
+
+    @JoinColumn(name = "student_id", referencedColumnName = "st_id")
     private Long studentId;
-    @Column(name = "subject_id")
+
+    @JoinColumn(name = "subject_id", referencedColumnName = "sb_id")
     private Long subjectId;
 
     public Long getSsId() {
