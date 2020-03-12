@@ -3,6 +3,7 @@ package com.student.studentdemo.service;
 import com.github.tennaito.rsql.jpa.JpaCriteriaCountQueryVisitor;
 import com.github.tennaito.rsql.jpa.JpaCriteriaQueryVisitor;
 import com.student.studentdemo.dto.StudentDTO;
+import com.student.studentdemo.dto.SubjectDTO;
 import com.student.studentdemo.model.Student;
 import com.student.studentdemo.repository.StudentRepository;
 import com.student.studentdemo.repository.StudentSubjectRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,17 +28,20 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final StudentSubjectRepository studentSubjectRepository;
     private final SubjectRepository subjectRepository;
+    private final SubjectService subjectService;
     private final EntityManager entityManager;
     private final ModelMapper modelMapper;
 
     public StudentService(StudentRepository studentRepository,
                           StudentSubjectRepository studentSubjectRepository,
                           SubjectRepository subjectRepository,
+                          SubjectService subjectService,
                           EntityManager entityManager,
                           ModelMapper modelMapper) {
         this.studentRepository = studentRepository;
         this.studentSubjectRepository = studentSubjectRepository;
         this.subjectRepository = subjectRepository;
+        this.subjectService = subjectService;
         this.entityManager = entityManager;
         this.modelMapper = modelMapper;
     }
@@ -77,7 +82,7 @@ public class StudentService {
     public StudentDTO getStudent(Long id) {
         Student student = studentRepository.getStudentByStId(id);
         StudentDTO studentDto = modelMapper.map(student, StudentDTO.class);
-
+        List<SubjectDTO> subjects = subjectService.getSubjectsBySsList(id);
         return studentDto;
     }
 
@@ -87,6 +92,14 @@ public class StudentService {
         Type listType = new TypeToken<List<StudentDTO>>() {}.getType();
         return modelMapper.map(studentsBySubject, listType);
     }
+
+    public List<Object> getStudentAndSubject(Long id) {
+        Student student = studentRepository.getStudentByStId(id);
+        StudentDTO studentDto = modelMapper.map(student, StudentDTO.class);
+        List<SubjectDTO> subjects = subjectService.getSubjectsBySsList(id);
+        List<Object> objectList = new ArrayList<>();
+        objectList.add(studentDto);
+        objectList.add(subjects);
+        return objectList;
+    }
 }
-
-
